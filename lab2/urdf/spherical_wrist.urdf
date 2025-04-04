@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<robot name="puma" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Links -->
+
+  <!-- Map Link -->
+  <link name="map"/>
+
+  <!-- Base Link -->
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size="0.2 0.2 0.2"/>  <!-- Cube with 20cm sides -->
+      </geometry>
+      <material name="gray">
+        <color rgba="0.6 0.6 0.6 1.0"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="link1">
+    <visual>
+      <origin xyz="0 0 -0.335"/>  <!-- Moves the cylinder down -->
+      <geometry>
+        <cylinder radius="0.05" length="0.67"/>  <!-- Doubled the length -->
+      </geometry>
+      <material name="blue">
+        <color rgba="0 0 1 1"/>
+      </material>
+    </visual>
+  </link>
+  
+  <link name="link2">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.25"/>
+      </geometry>
+      <material name="red">
+        <color rgba="1 0 0 1"/>
+      </material>
+    </visual>
+  </link>
+
+  <link name="link3">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.25"/>
+      </geometry>
+      <material name="green">
+        <color rgba="0 1 0 1"/>
+      </material>
+    </visual>
+  </link>
+  
+
+  <!-- Joints-->
+  <joint name="map_to_base" type="fixed">
+    <parent link="map"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <joint name="joint1" type="continuous">
+    <parent link="base_link"/>
+    <child link="link1"/>
+    <origin xyz="0 0 0.67" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <!-- <limit effort="10.0" velocity="1.0" lower="-1.57" upper="1.57"/> -->
+  </joint>
+
+  <joint name="joint2" type="continuous">
+    <parent link="link1"/>
+    <child link="link2"/>
+    <origin xyz="0 0 0" rpy="-1.57 0 -1.57"/> <!-- d_1 = 0.150 from A4 -->
+    <axis xyz="0 0 1"/>
+    <!-- <limit effort="10.0" velocity="1.0" lower="-1.57" upper="1.57"/> -->
+  </joint>
+
+  <joint name="joint3" type="continuous">
+    <parent link="link2"/>
+    <child link="link3"/>
+    <origin xyz="-0.432 0 0" rpy="0 -1.57 0"/> <!-- a_2 = 0.432 from A4 -->
+    <axis xyz="0 0 1"/>
+    <!-- <limit effort="10.0" velocity="1.0" lower="-1.57" upper="1.57"/> -->
+  </joint>
+
+  
+
+</robot>
